@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Резюме - Ильин Илья</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Ильин Илья Сергеевич</h1>
+    <p>Веб-разработчик</p>
+  </header>
+
+  <section class="toggle-section" id="about">
+    <div class="section-header">
+      <h2>Обо мне</h2>
+      <button class="toggle-btn">+</button>
+    </div>
+    <div class="section-content">
+      <ul>
+Закончил ЮУрГУ (НИУ) по направлению Прикладная математика и информатика, поступаю
+в магистратуру ЮУрГУ (НИУ) на направление Фундаментальная информатика и
+информационные технологии. Увлекаюсь автомобилями, а именно проектирование
+сложных звуковых систем, проектированием простых сайтов и сложных веб-систем с
+возможностью интеграции, нравиться изучать что-то новое. Легко нахожу общий язык с
+многими людьми, могу быстро и с холодной головой находить решения сложных задач
+      </ul>
+    </div>
+  </section>
+
+<section class="toggle-section" id="skills">
+  <div class="section-header">
+    <h2>Навыки</h2>
+    <button class="toggle-btn">+</button>
+  </div>
+  <div class="section-content skills-grid">
+    <div class="skills-category">
+      <h3>Python</h3>
+      <ul>
+        <li>Python</li>
+        <li>Flask / Flask-CORS</li>
+        <li>OpenCV</li>
+        <li>Pandas</li>
+        <li>PyTorch, TensorFlow</li>
+        <li>Llama_cpp</li>
+      </ul>
+    </div>
+    <div class="skills-category">
+      <h3>Web</h3>
+      <ul>
+        <li>HTML, CSS, JS</li>
+        <li>PHP, MySQL</li>
+        <li>WordPress</li>
+        <li>Git, Figma</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+  <section class="toggle-section" id="contact">
+    <div class="section-header">
+      <h2>Связаться со мной</h2>
+      <button class="toggle-btn">+</button>
+    </div>
+    <div class="section-content">
+      <div class="contact-links">
+  <a href="https://t.me/il1lyushken" target="_blank" aria-label="Telegram" class="icon-link">
+    <img src="https://logo-teka.com/wp-content/uploads/2025/06/telegram-logo.svg" alt="SVG logo Telegram" style="max-width:500px;" />
+  </a>
+  <a href="https://www.instagram.com/1lyushken/" aria-label="Email" class="icon-link">
+    <img src="https://logo-teka.com/wp-content/uploads/2025/06/instagram-sign-logo.svg" alt="SVG logo Instagram" style="max-width:200px;" />
+  </a>
+ <img src="https://img.icons8.com/?size=50&id=53388&format=png&color=000000" style="max-width:25px;" />ilyushken@ilyushken.ru
+</div>
+    </div>
+  </section>
+  <footer>
+    <p>&copy; 2025 1lyushken</p>
+  </footer>
+  <!-- Абстрактная анимация фона -->
+<canvas id="abstract-bg"></canvas>
+
+<style>
+  /* canvas под фон */
+  #abstract-bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    display: block;
+    background: radial-gradient(circle at 30% 30%, #0f1e42 0%, #0a0f1f 80%);
+  }
+  /* Чтобы остальные элементы были видны поверх */
+  body {
+    position: relative;
+    overflow-x: hidden;
+  }
+</style>
+
+<script>
+(() => {
+  const canvas = document.getElementById('abstract-bg');
+  const ctx = canvas.getContext('2d');
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+  const particles = [];
+  const PARTICLE_COUNT = Math.min(120, Math.floor((width * height) / 6000));
+  const MAX_DIST = 140;
+  const mouse = { x: null, y: null, radius: 100 };
+
+  // утилита: случайное в диапазоне
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = rand(0, width);
+      this.y = rand(0, height);
+      const speed = rand(0.1, 0.6);
+      const angle = rand(0, Math.PI * 2);
+      this.vx = Math.cos(angle) * speed;
+      this.vy = Math.sin(angle) * speed;
+      this.size = rand(1.5, 3.5);
+      this.phase = Math.random() * Math.PI * 2; // для пульсации
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      // циклически выход за границы
+      if (this.x < -20) this.x = width + 20;
+      if (this.x > width + 20) this.x = -20;
+      if (this.y < -20) this.y = height + 20;
+      if (this.y > height + 20) this.y = -20;
+
+      // лёгкая пульсация
+      this.phase += 0.03;
+    }
+    draw() {
+      const pulse = 0.5 + Math.sin(this.phase) * 0.3; // от 0.2 до 0.8
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size * pulse, 0, Math.PI * 2);
+      const gradient = ctx.createRadialGradient(
+        this.x, this.y, 0,
+        this.x, this.y, this.size * pulse * 3
+      );
+      // цветовая смена по времени
+      const t = (Date.now() * 0.00008) % 1;
+      const hue = Math.floor(220 + Math.sin(t * Math.PI * 2) * 40); // 180–260
+      gradient.addColorStop(0, `hsla(${hue}, 70%, 70%, 0.9)`);
+      gradient.addColorStop(1, `hsla(${hue}, 70%, 30%, 0)`);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    particles.length = 0;
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  function drawConnections() {
+    for (let i = 0; i < particles.length; i++) {
+      const a = particles[i];
+      for (let j = i + 1; j < particles.length; j++) {
+        const b = particles[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < MAX_DIST) {
+          const alpha = 0.25 * (1 - dist / MAX_DIST);
+          // если мышь рядом — усилить
+          if (mouse.x !== null) {
+            const dmx = (a.x + b.x) / 2 - mouse.x;
+            const dmy = (a.y + b.y) / 2 - mouse.y;
+            const dMouse = Math.hypot(dmx, dmy);
+            if (dMouse < mouse.radius) {
+              // ближе к мыши — ярче и чуть толще
+              ctx.lineWidth = 1.2;
+              ctx.strokeStyle = `hsla(200, 80%, 80%, ${Math.min(0.6, alpha + 0.2)})`;
+            } else {
+              ctx.lineWidth = 0.7;
+              ctx.strokeStyle = `hsla(200, 80%, 80%, ${alpha})`;
+            }
+          } else {
+            ctx.lineWidth = 0.7;
+            ctx.strokeStyle = `hsla(200, 80%, 80%, ${alpha})`;
+          }
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    // слегка затемнённый слой для эффекта “тумана”
+    ctx.fillStyle = 'rgba(10, 20, 50, 0.26)';
+    ctx.fillRect(0, 0, width, height);
+
+    // обновление и отрисовка частиц
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+
+    drawConnections();
+    requestAnimationFrame(animate);
+  }
+
+  // мышь/тач для интерактивности
+  window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+  window.addEventListener('mouseleave', () => {
+    mouse.x = null;
+    mouse.y = null;
+  });
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    initParticles();
+  });
+
+  // инициализация
+  initParticles();
+  requestAnimationFrame(animate);
+})();
+</script>
+
+  <script src="js.js"></script>
+</body>
+</html>

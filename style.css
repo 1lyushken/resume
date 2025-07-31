@@ -1,0 +1,143 @@
+body {
+  font-family: VKSansDisplayDemiBoldFaux, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+header {
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+section {
+  max-width: 800px;
+  margin: 15px auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #eee;
+  padding: 15px 20px;
+  cursor: pointer;
+}
+
+.section-header h2 {
+  margin: 0;
+}
+
+.toggle-btn {
+  font-size: 20px;
+  padding: 5px 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.section-content {
+  padding: 0 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  text-align: justify;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.section-content.open {
+  padding: 15px 20px;
+  max-height: 500px;
+  text-align: justify;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button[type="submit"] {
+  background: #333;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background: #555;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+  color: white;
+}
+
+.contact-links {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.icon-link {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  transition: transform .2s, filter .2s;
+}
+
+.icon-link svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.icon-link:hover {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+.skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .skills-category h3 {
+    margin-bottom: 10px;
+  }
+
+  .skills-category ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .skills-category li {
+    margin-bottom: 5px;
+  }
+
+  
+
+  @font-face {
+  font-family: "VKSansDisplayDemiBoldFaux"; 
+  src: url("fonts/VKSansDisplayDemiBoldFaux.v100.ttf") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+} 
+
